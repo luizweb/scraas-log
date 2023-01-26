@@ -20,7 +20,9 @@ app.get("/", (req,res)=>{
 
 app.post("/callback", async (req,res)=>{
     try {
-        const addLog = await logModel.create({requisitante: "teste"});
+        
+        
+        const addLog = await logModel.create({requisitante: JSON.stringify(req.body)});
         return res.status(201).json(addLog);
     } catch (error) {
         console.log(error);
