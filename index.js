@@ -24,7 +24,7 @@ app.post("/callback", async (req,res)=>{
         return res.status(201).json(addLog);
     } catch (error) {
         console.log(error);
-        return res.status(500).json({msg: "erro"});
+        return res.status(500).json({msg: error});
     }
 })
 
