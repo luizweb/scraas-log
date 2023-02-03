@@ -48,7 +48,7 @@ app.post("/callback", async (req,res)=>{
         //no lugar do id, usar o tokenId para localizar (findOneAndUpdate)
         /* const updateLog = await logModel.create({resposta: JSON.stringify(req.body)}); */
         const tokenId = "776224cc-6bea-484f-a76b-c843a2c3044f"
-        const updateLog = await logModel.findOneAndUpdate({tokenId: tokenId}, {resposta: JSON.stringify(req.body), status:1}, {new: true, runValidators: true})
+        const updateLog = await logModel.findOneAndUpdate({tokenId: tokenId}, {resposta: JSON.stringify(req.headers), status:1}, {new: true, runValidators: true})
         return res.status(200).json(updateLog);
     } catch (error) {
         console.log(error);
