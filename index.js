@@ -21,7 +21,7 @@ app.get("/", (req,res)=>{
 
 app.get("/requisicoes", async (req,res)=>{    
     try {
-        const requisicoes = await logModel.find();
+        const requisicoes = await logModel.find().sort({createdAt: -1});
         return res.status(200).json(requisicoes);
     } catch (error) {
         console.log(error);
@@ -34,7 +34,7 @@ app.post("/new", async (req,res)=>{
     try {
         const {tokenId} = req.body;
 
-        const addLog = await logModel.create({tokenId: tokenId, requisitante: "Luiz Antonio"});
+        const addLog = await logModel.create({tokenId: tokenId, requisitante: "nome_do_requisitante"});
         return res.status(201).json(addLog);
     } catch (error) {
         console.log(error);
