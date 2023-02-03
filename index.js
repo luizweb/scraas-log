@@ -44,7 +44,7 @@ app.post("/new", async (req,res)=>{
 
 app.post("/callback", async (req,res)=>{
     try {     
-        
+        //tokenId --> if-none-match
         const updateLog = await logModel.findOneAndUpdate({tokenId: req.headers.if-none-match}, {resposta: JSON.stringify(req.body), status:1}, {new: true, runValidators: true})
         return res.status(200).json(updateLog);
     } catch (error) {
