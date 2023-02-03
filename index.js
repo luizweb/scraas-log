@@ -45,8 +45,10 @@ app.post("/new", async (req,res)=>{
 app.post("/callback", async (req,res)=>{
     try {     
         //tokenId --> if-none-match
-        const tokenId = req.headers.if-none-match.replace("\"","")
-        const updateLog = await logModel.findOneAndUpdate({tokenId: tokenId}, {resposta: JSON.stringify(req.body), status:1}, {new: true, runValidators: true})
+        //JSON.stringify(req.body)
+        const tokenId = "6341c6cc-b12d-4c85-a682-270531fc20ce"
+        const teste = req.headers.if-none-match.replace("\"","")
+        const updateLog = await logModel.findOneAndUpdate({tokenId: tokenId}, {resposta: teste, status:1}, {new: true, runValidators: true})
         return res.status(200).json(updateLog);
     } catch (error) {
         console.log(error);
