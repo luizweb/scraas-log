@@ -18,17 +18,43 @@ app.get("/", (req,res)=>{
     return res.status(200).json({msg: "scraas-log"})
 });
 
-app.post("/callback", async (req,res)=>{
+
+app.get("/requisicoes", async (req,res)=>{    
     try {
-        
-        
-        const addLog = await logModel.create({requisitante: JSON.stringify(req.body)});
+        const requisicoes = await logModel.find();
+        return res.status(200).json(requisicoes);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({msg: error});
+    } 
+});
+
+
+app.post("/new", async (req,res)=>{
+    try {
+        const {tokenId} = req.body;
+
+        const addLog = await logModel.create({tokenId: tokenId, requisitante: "Luiz Antonio"});
         return res.status(201).json(addLog);
     } catch (error) {
         console.log(error);
         return res.status(500).json({msg: error});
     }
-})
+});
+
+app.post("/callback", async (req,res)=>{
+    try {     
+        
+        //no lugar do id, usar o tokenId para localizar (findOneAndUpdate)
+        /* const updateLog = await logModel.create({resposta: JSON.stringify(req.body)}); */
+        const tokenId = "776224cc-6bea-484f-a76b-c843a2c3044f"
+        const updateLog = await logModel.findOneAndUpdate({tokenId: tokenId}, {resposta: JSON.stringify(req.body), status:1}, {new: true, runValidators: true})
+        return res.status(200).json(updateLog);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({msg: error});
+    }
+});
 
 
 app.listen(process.env.PORT, ()=>{
