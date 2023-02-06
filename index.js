@@ -34,15 +34,6 @@ app.post("/new", async (req,res)=>{
     try {
         const {tokenId, exercicio, municipio} = req.body;
 
-        if (exercicio === ""){
-            exercicio = "Todos"
-        }
-            
-        
-        if (municipio === ""){
-            municipio = "Todos"  
-        }
-
         const addLog = await logModel.create({tokenId: tokenId, requisitante: "nome_do_requisitante", exercicio: exercicio, municipio: municipio});
         return res.status(201).json(addLog);
     } catch (error) {
