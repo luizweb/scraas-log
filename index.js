@@ -32,11 +32,9 @@ app.get("/requisicoes", async (req,res)=>{
 
 app.post("/new", async (req,res)=>{
     try {
-        //const {tokenId, exercicio, municipio} = req.body;
-        const {tokenId} = req.body;
+        const {tokenId, exercicio, municipio} = req.body;
 
-        //const addLog = await logModel.create({tokenId: tokenId, requisitante: "nome_do_requisitante", exercicio: exercicio, municipio: municipio});
-        const addLog = await logModel.create({tokenId: tokenId, requisitante: "nome_do_requisitante"});
+        const addLog = await logModel.create({tokenId: tokenId, requisitante: "nome_do_requisitante", exercicio: exercicio, municipio: municipio});
         return res.status(201).json(addLog);
     } catch (error) {
         console.log(error);
@@ -47,7 +45,8 @@ app.post("/new", async (req,res)=>{
 app.post("/callback", async (req,res)=>{
     try {     
         //tokenId --> if-none-match
-        //JSON.stringify(req.body)        
+        //JSON.stringify(req.body)
+        
 
         const tokenId = req.header("if-none-match").replaceAll('"',''); 
         const updateLog = await logModel.findOneAndUpdate({tokenId: tokenId}, {resposta: JSON.stringify(req.body), status:1}, {new: true, runValidators: true})
