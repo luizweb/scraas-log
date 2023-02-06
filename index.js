@@ -32,9 +32,9 @@ app.get("/requisicoes", async (req,res)=>{
 
 app.post("/new", async (req,res)=>{
     try {
-        const {tokenId} = req.body;
+        const {tokenId, exercicio, municipio} = req.body;
 
-        const addLog = await logModel.create({tokenId: tokenId, requisitante: "nome_do_requisitante"});
+        const addLog = await logModel.create({tokenId: tokenId, requisitante: "nome_do_requisitante", exercicio: exercicio, municipio: municipio});
         return res.status(201).json(addLog);
     } catch (error) {
         console.log(error);

@@ -3,7 +3,9 @@ import {Schema, model} from 'mongoose';
 const logSchema = new Schema(
     {
         tokenId: {type: String},
-        requisitante: {type: String},        
+        requisitante: {type: String}, 
+        exercicio: {type: String}, 
+        municipio: {type: String},      
         status: {type: Number, default: 0},
         resposta: {type: String}
     },
