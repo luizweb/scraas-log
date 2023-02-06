@@ -47,12 +47,14 @@ app.post("/callback", async (req,res)=>{
         //tokenId --> if-none-match
         //JSON.stringify(req.body)
         
-        const tokenId = req.header("if-none-match").replaceAll('"','');        
-        let updateLog = ""
-        if (!tokenId){
-            updateLog = await logModel.create({tokenId: "1", requisitante: "nome_do_requisitante"});
-        }
 
+        let updateLog = ""
+        if (!req.header("if-none-match").replaceAll('"','')){
+            updateLog = await logModel.create({tokenId: "1", requisitante: "nome_do_requisitante"});
+            return res.status(200).json(updateLog)
+        };
+
+        const tokenId = req.header("if-none-match").replaceAll('"',''); 
         updateLog = await logModel.findOneAndUpdate({tokenId: tokenId}, {resposta: JSON.stringify(req.body), status:1}, {new: true, runValidators: true})
         return res.status(200).json(updateLog);
     } catch (error) {
