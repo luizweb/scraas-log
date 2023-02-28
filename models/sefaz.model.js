@@ -1,6 +1,6 @@
 import {Schema, model} from 'mongoose';
 
-const logSchema = new Schema(
+const sefazSchema = new Schema(
     {
         tokenId: {type: String},
         requisitante: {type: String}, 
@@ -12,6 +12,6 @@ const logSchema = new Schema(
     { timestamps: true }
     );
 
-const logModel = model("Log", logSchema);
+const sefazModel = model("Sefaz_log", sefazSchema);
 
-export default logModel;
+export default sefazModel;
