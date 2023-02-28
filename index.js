@@ -4,6 +4,7 @@ import cors from "cors";
 import connect from "./config/db.config.js";
 
 import sefazRoute from "./routes/sefaz.routes.js";
+import prefRoute from "./routes/pref.routes.js";
 
 
 
@@ -23,6 +24,7 @@ app.get("/", (req,res)=>{
 
 
 app.use("/sefaz", sefazRoute);
+app.use("/pref", prefRoute);
 
 app.listen(process.env.PORT, ()=>{
     console.log(`App up and running on port http://localhost:${process.env.PORT}`)
